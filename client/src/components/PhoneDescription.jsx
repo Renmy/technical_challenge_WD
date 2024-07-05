@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import axios from "axios";
 
 const PhoneDescription = () => {
   const [phone, setPhone] = useState(null);
   const { phoneId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPhone = async () => {
@@ -26,14 +27,20 @@ const PhoneDescription = () => {
   return phone ? (
     <div className="flex flex-col gap-2 justify-center items-center p-4 shadow-md rounded-md bg-slate-600 text-slate-50">
       <img src={phone.imageFileName} alt="phone img" />
-      <h1 className="text-2xl font-semibold">{phone.name}</h1>
-      <h3 className="text-xl">{phone.manufacturer}</h3>
-      <p>${phone.price.toFixed(2)}</p>
-      <p className="">{phone.color}</p>
-      <p className="">{phone.description}</p>
-      <p className="">{phone.screen}</p>
-      <p className="">{phone.processor}</p>
-      <p className="">{phone.ram}</p>
+      <h1 className="text-2xl font-semibold">Model: {phone.name}</h1>
+      <h3 className="text-xl">Brand: {phone.manufacturer}</h3>
+      <p>Price: ${phone.price.toFixed(2)}</p>
+      <p className="">Color: {phone.color}</p>
+      <p className="">Description: {phone.description}</p>
+      <p className="">Screen: {phone.screen}</p>
+      <p className="">Processor: {phone.processor}</p>
+      <p className="">RAM: {phone.ram}GB</p>
+      <p
+        className="cursor-pointer text-xl font-semibold hover:scale-110 hover:text-blue-500"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </p>
     </div>
   ) : (
     <BeatLoader
